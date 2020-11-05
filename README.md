@@ -2,17 +2,17 @@
 
 ## 1. Start Elastic
 
-## 2. Crear documento
+    ````shell
+    $ docker-compose -f docker-compose-elastic.yml up --build -d
+    ````
+## 2. Importar proyecto Postman
 
-## 3. Consultar documento
+## 3. Crear documento
 
-## 4. Actualizar documento
+## 4. Consultar documento
 
-### 4.1 Actualizacion parcial
+## 5. Actualizar documento
 
-### 4.2 Actualización total
+## 6. Actualizar documento
 
-## 5. Eliminar documento
-
-## 6. Administrar indices
 

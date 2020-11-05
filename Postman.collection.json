@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "c8f760a6-0def-4391-a954-c3362a961c72",
+		"name": "CHC - Elastic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Leaf queries",
+			"item": [
+				{
+					"name": "Get documento - match",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"match\":{\n      \"Nombre\":\"leonardo\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/chc_data/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"chc_data",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get documento - term",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"term\": {\n      \"Nombre.keyword\": {\n        \"value\": \"Leonardo\"\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/chc_data/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"chc_data",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get documento - range",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"range\": {\n      \"Edad\":{\n        \"gt\":29,\n        \"lte\":32\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/chc_data/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"chc_data",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Compound queries",
+			"item": [
+				{
+					"name": "Get documento - bool",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"term\": {\n            \"Nombre.keyword\": {\n              \"value\": \"Camila\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/chc_data/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"chc_data",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get documento - bool2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        { \"term\": { \"Nombre.keyword\": { \"value\": \"Leonardo\" } } }\n      ],\n      \"must_not\": { \"range\": { \"Edad\": { \"gt\": 30 } } }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/chc_data/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"chc_data",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get documento - constant_score",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"constant_score\": {\n      \"filter\": {\n        \"term\": { \"Nombre.keyword\": \"Leonardo\" }\n      },\n      \"boost\": 1\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/chc_data/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"chc_data",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get documento - dis_max",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"dis_max\": {\n      \"queries\": [\n        { \"term\": { \"Nombre.keyword\": { \"value\": \"Leonardo\" } } },\n        { \"range\": { \"Edad\": { \"gte\": 30 } }\n        }\n      ]\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/chc_data/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"chc_data",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Post documento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nombre\":\"Camila\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/chc_data/doc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"chc_data",
+						"doc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update documento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nombre\":\"Leonardo\",\n    \"Edad\":30\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/chc_data/doc/Yw19UHUBKmnJrjywH4vV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"chc_data",
+						"doc",
+						"Yw19UHUBKmnJrjywH4vV"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete documento",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/chc_data/doc/YQ1IUHUBKmnJrjywkIsc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"chc_data",
+						"doc",
+						"YQ1IUHUBKmnJrjywkIsc"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

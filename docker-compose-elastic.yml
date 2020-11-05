@@ -8,10 +8,3 @@ services:
       - "9200"
     ports:
       - "9200:9200"
-
-  kibana:
-    image: kibana:7.2.0
-    links:
-      - "elasticsearch"
-    ports:
-      - "5601:5601"
